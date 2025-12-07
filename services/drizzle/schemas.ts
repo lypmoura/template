@@ -97,3 +97,14 @@ export const authenticatorsTable = pgTable(
         },
     ]
 )
+
+export const productsTable = pgTable("product", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: uuid("userId")
+        .notNull()
+        .references(() => usersTable.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    description: text("description").notNull(),
+    price: integer("price").notNull(),
+    imageUrl: text("imageUrl").notNull(),
+})

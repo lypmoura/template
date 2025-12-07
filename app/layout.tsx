@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Providers } from "@/components/providers";
 import { auth } from "@/services/auth";
 
 const font = Montserrat({
@@ -10,7 +10,7 @@ const font = Montserrat({
 });
 
 export const metadata: Metadata = {
-	title: "Felype Moura - Boilerplate",
+	title: "NexoGG",
 };
 
 export default async function RootLayout({
@@ -18,15 +18,14 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await auth()
+	const session = await auth();
+	
 	return (
-		<html lang="en">
-			<body
-				className={`${font.className} antialiased`}
-			>
-				<SessionProvider session={session}>
+		<html lang="pt-BR">
+			<body className={`${font.className} antialiased`} >
+				<Providers session={session}>
 					{children}
-				</SessionProvider>
+				</Providers>
 			</body>
 		</html>
 	);
